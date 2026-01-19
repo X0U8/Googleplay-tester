@@ -7,10 +7,14 @@
     <link rel="icon" type="image/jpeg" href="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
         }
 
         body {
@@ -173,28 +177,71 @@
             transform: translateX(5px);
         }
 
-        /* All these keep the original layout preserved */
-        .iframe-overlay { display: none; }
-        .iframe-overlay.show { display: none; }
-        .iframe-container { display: none; }
-        .close-btn { display: none; }
-        iframe { display: none; }
+        .iframe-overlay {
+            display: none;
+        }
+
+        .iframe-overlay.show {
+            display: none;
+        }
+
+        .iframe-container {
+            display: none;
+        }
+
+        .close-btn {
+            display: none;
+        }
+
+        iframe {
+            display: none;
+        }
 
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .subtitle { font-size: 0.9rem; }
-            .logo { width: 150px; height: 150px; }
-            .instructions h3 { font-size: 1rem; }
-            .step { font-size: 0.85rem; }
-            .step-number { width: 24px; height: 24px; font-size: 0.8rem; }
-            .note { font-size: 0.8rem; }
-            .btn { font-size: 1rem; padding: 14px 30px; }
-            .link-btn { font-size: 0.9rem; padding: 12px 20px; }
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .instructions h3 {
+                font-size: 1rem;
+            }
+
+            .step {
+                font-size: 0.85rem;
+            }
+
+            .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+
+            .note {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 14px 30px;
+            }
+
+            .link-btn {
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
+<body oncontextmenu="return false;"> <div class="container">
         <div class="logo">
             <img src="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929" alt="Gixplay Logo">
         </div>
@@ -205,43 +252,44 @@
         <button class="btn" onclick="openGroupJoin()">Join as Tester</button>
 
         <div class="download-links" id="downloadLinks">
-            <h2>✓ Next Steps</h2>
+            <h2>Joined Successfully</h2>
             
             <div class="instructions">
                 <h3>Follow these steps:</h3>
                 <div class="step">
                     <div class="step-number">1</div>
-                    <div class="step-text">Join the Google Group in the tab that just opened.</div>
+                    <div class="step-text">Join the Google Group in the first tab.</div>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <div class="step-text">Click "Become a Tester" on the Play Store page.</div>
+                    <div class="step-text">Opt-in to the testing program in the second tab.</div>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <div class="step-text">Download the app using the link below.</div>
+                    <div class="step-text">Download the app from the Play Store.</div>
                 </div>
                 <div class="note">
-                    Note: You must be signed into the same Google account on the Play Store as you used to join the group.
+                    Note: Ensure you use the same Google account for both the group and the Play Store.
                 </div>
             </div>
 
-            <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" class="link-btn" target="_blank">
-                📱 Download from Play Store
-            </a>
             <a href="https://play.google.com/apps/testing/com.gixplay.player" class="link-btn" target="_blank">
-                🔗 Open Testing Program
+                Open Testing Program
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" class="link-btn" target="_blank">
+                Download from Play Store
             </a>
         </div>
     </div>
 
     <script>
-        // Changed function name to match the button's "openGroupJoin()"
         function openGroupJoin() {
-            // Open Google Group in new tab
+            
             window.open('https://groups.google.com/g/gixplay', '_blank');
             
-            // Show instructions and download links
+            
+            window.open('https://play.google.com/apps/testing/com.gixplay.player', '_blank');
+            
             const links = document.getElementById('downloadLinks');
             links.classList.add('show');
             links.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
