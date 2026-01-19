@@ -173,67 +173,23 @@
             transform: translateX(5px);
         }
 
-        .iframe-overlay {
-            display: none;
-        }
-
-        .iframe-overlay.show {
-            display: none;
-        }
-
-        .iframe-container {
-            display: none;
-        }
-
-        .close-btn {
-            display: none;
-        }
-
-        iframe {
-            display: none;
-        }
+        /* All these keep the original layout preserved */
+        .iframe-overlay { display: none; }
+        .iframe-overlay.show { display: none; }
+        .iframe-container { display: none; }
+        .close-btn { display: none; }
+        iframe { display: none; }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .logo {
-                width: 150px;
-                height: 150px;
-            }
-
-            .instructions h3 {
-                font-size: 1rem;
-            }
-
-            .step {
-                font-size: 0.85rem;
-            }
-
-            .step-number {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8rem;
-            }
-
-            .note {
-                font-size: 0.8rem;
-            }
-
-            .btn {
-                font-size: 1rem;
-                padding: 14px 30px;
-            }
-
-            .link-btn {
-                font-size: 0.9rem;
-                padding: 12px 20px;
-            }
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; }
+            .logo { width: 150px; height: 150px; }
+            .instructions h3 { font-size: 1rem; }
+            .step { font-size: 0.85rem; }
+            .step-number { width: 24px; height: 24px; font-size: 0.8rem; }
+            .note { font-size: 0.8rem; }
+            .btn { font-size: 1rem; padding: 14px 30px; }
+            .link-btn { font-size: 0.9rem; padding: 12px 20px; }
         }
     </style>
 </head>
@@ -249,8 +205,27 @@
         <button class="btn" onclick="openGroupJoin()">Join as Tester</button>
 
         <div class="download-links" id="downloadLinks">
-            <h2>✓ Joined Successfully!</h2>
-            <p style="color: #aaa; margin-bottom: 20px;">Click below to download the app:</p>
+            <h2>✓ Next Steps</h2>
+            
+            <div class="instructions">
+                <h3>Follow these steps:</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Join the Google Group in the tab that just opened.</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Click "Become a Tester" on the Play Store page.</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Download the app using the link below.</div>
+                </div>
+                <div class="note">
+                    Note: You must be signed into the same Google account on the Play Store as you used to join the group.
+                </div>
+            </div>
+
             <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" class="link-btn" target="_blank">
                 📱 Download from Play Store
             </a>
@@ -261,11 +236,12 @@
     </div>
 
     <script>
-        function openGroupAndShowInstructions() {
+        // Changed function name to match the button's "openGroupJoin()"
+        function openGroupJoin() {
             // Open Google Group in new tab
             window.open('https://groups.google.com/g/gixplay', '_blank');
             
-            // Show instructions
+            // Show instructions and download links
             const links = document.getElementById('downloadLinks');
             links.classList.add('show');
             links.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
