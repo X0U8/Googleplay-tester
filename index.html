@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Gixplay Testing</title>
+    <title>Gixplay & Glix Local Testing</title>
     <link rel="icon" type="image/jpeg" href="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-user-select: none; 
-            -ms-user-select: none; 
-            user-select: none; 
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -25,34 +24,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
         }
 
-        .logo {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 40px;
-            border-radius: 20px;
+        .main-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            border-radius: 25px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
         }
 
-        .logo img {
+        .main-logo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
             background: linear-gradient(135deg, #ffffff, #888888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -61,239 +59,274 @@
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #aaaaaa;
             margin-bottom: 40px;
             line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
-        }
-
-        .download-links {
-            display: none;
-            margin-top: 40px;
-            padding: 30px;
-            background: #111111;
-            border-radius: 15px;
-            border: 1px solid #333333;
-        }
-
-        .download-links.show {
-            display: block;
-        }
-
-        .download-links h2 {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .instructions {
+        /* --- GUIDE SECTION --- */
+        .guide-box {
             background: #0a0a0a;
-            padding: 25px;
-            border-radius: 12px;
             border: 1px solid #222222;
-            margin-bottom: 25px;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 50px;
             text-align: left;
+            position: relative;
+            overflow: hidden;
         }
 
-        .instructions h3 {
+        .guide-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #ffffff;
+        }
+
+        .guide-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
             color: #ffffff;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+            padding-left: 10px;
         }
 
-        .step {
+        .step-row {
             display: flex;
+            margin-bottom: 20px;
             align-items: flex-start;
-            margin-bottom: 15px;
-            color: #cccccc;
-            font-size: 0.95rem;
-            line-height: 1.6;
         }
 
-        .step-number {
+        .step-num {
             background: #ffffff;
             color: #000000;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9rem;
-            margin-right: 12px;
+            margin-right: 15px;
             flex-shrink: 0;
-        }
-
-        .step-text {
-            flex: 1;
-        }
-
-        .note {
-            background: #1a1a1a;
-            border-left: 3px solid #ffffff;
-            padding: 12px 15px;
-            margin-top: 15px;
-            border-radius: 5px;
             font-size: 0.9rem;
-            color: #aaaaaa;
         }
 
-        .link-btn {
-            display: block;
-            background: #222222;
+        .step-desc {
+            color: #cccccc;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding-top: 3px;
+        }
+
+        .important-note {
+            background: #151515;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            border-left: 3px solid #555;
+        }
+
+        /* --- ACTION BUTTONS --- */
+        .group-btn-container {
+            margin-bottom: 60px;
+        }
+
+        .btn-group {
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-group:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+        }
+
+        /* --- APPS GRID --- */
+        .apps-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .app-card {
+            background: #111111;
+            border: 1px solid #333333;
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover {
+            border-color: #666666;
+            transform: translateY(-5px);
+        }
+
+        .app-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .app-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .app-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn-link {
+            background: #1a1a1a;
             color: #ffffff;
             text-decoration: none;
-            padding: 15px 30px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border: 1px solid #444444;
-            transition: all 0.3s ease;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid #333333;
+            transition: all 0.2s ease;
         }
 
-        .link-btn:hover {
-            background: #333333;
-            border-color: #666666;
-            transform: translateX(5px);
-        }
-
-        .iframe-overlay {
-            display: none;
-        }
-
-        .iframe-overlay.show {
-            display: none;
-        }
-
-        .iframe-container {
-            display: none;
-        }
-
-        .close-btn {
-            display: none;
-        }
-
-        iframe {
-            display: none;
+        .btn-link:hover {
+            background: #2a2a2a;
+            border-color: #ffffff;
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
+            .apps-grid {
+                grid-template-columns: 1fr;
             }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .logo {
-                width: 150px;
-                height: 150px;
-            }
-
-            .instructions h3 {
-                font-size: 1rem;
-            }
-
-            .step {
-                font-size: 0.85rem;
-            }
-
-            .step-number {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8rem;
-            }
-
-            .note {
-                font-size: 0.8rem;
-            }
-
-            .btn {
-                font-size: 1rem;
-                padding: 14px 30px;
-            }
-
-            .link-btn {
-                font-size: 0.9rem;
-                padding: 12px 20px;
-            }
+            h1 { font-size: 1.8rem; }
+            .btn-group { width: 100%; padding: 16px; font-size: 1.1rem; }
+            .guide-box { padding: 20px; }
+            .step-desc { font-size: 0.9rem; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <div class="container">
-        <div class="logo">
+<body oncontextmenu="return false;">
+
+    <div class="container">
+        
+        <div class="main-logo">
             <img src="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929" alt="Gixplay Logo">
         </div>
-        
-        <h1>Welcome to Gixplay</h1>
-        <p class="subtitle">Join our testing program and be among the first to experience new features!</p>
-        
-        <button class="btn" onclick="openGroupJoin()">Join as Tester</button>
+        <h1>Gixplay Testing Program</h1>
+        <p class="subtitle">Welcome! Follow the steps below to become an exclusive tester for our latest apps.</p>
 
-        <div class="download-links" id="downloadLinks">
-            <h2>Joined Successfully</h2>
+        <div class="guide-box">
+            <h2 class="guide-title">How to Join</h2>
             
-            <div class="instructions">
-                <h3>Follow these steps:</h3>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Join the Google Group in the first tab.</div>
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-desc">Click the "Join Google Group" button below. A new tab will open. Join the group using your Google Account.</div>
+            </div>
+            
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-desc">Return to this page and choose an app from the list below (Gixplay or Glix Local).</div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-desc">Click "Join Web Testing". Accept the invitation on the Google page.</div>
+            </div>
+
+            <div class="step-row">
+                <div class="step-num">4</div>
+                <div class="step-desc">Wait a moment, then click "Download on Play Store" to install the app.</div>
+            </div>
+
+            <div class="important-note">
+                Suggestion: You must use the exact same Google Account for joining the Group, the Web Invitation, and the Play Store download.
+            </div>
+        </div>
+
+        <div class="group-btn-container">
+            <a href="https://groups.google.com/g/gixplay" target="_blank" class="btn-group">
+                Step 1: Join Google Group
+            </a>
+        </div>
+
+        <h2 class="apps-title">Select an App to Test</h2>
+        
+        <div class="apps-grid">
+            
+            <div class="app-card">
+                <div class="app-logo">
+                    <img src="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929" alt="Gixplay">
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Opt-in to the testing program in the second tab.</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Download the app from the Play Store.</div>
-                </div>
-                <div class="note">
-                    Note: Ensure you use the same Google account for both the group and the Play Store.
+                <h3 class="app-name">Gixplay</h3>
+                <div class="app-links">
+                    <a href="https://play.google.com/apps/testing/com.gixplay.player" target="_blank" class="btn-link">
+                        Join Web Testing
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" target="_blank" class="btn-link">
+                        Download on Play Store
+                    </a>
                 </div>
             </div>
 
-            <a href="https://play.google.com/apps/testing/com.gixplay.player" class="link-btn" target="_blank">
-                Open Testing Program
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" class="link-btn" target="_blank">
-                Download from Play Store
-            </a>
+            <div class="app-card">
+                <div class="app-logo">
+                    <img src="https://ik.imagekit.io/sbsjhivv8/play_store_512.png" alt="Glix Local">
+                </div>
+                <h3 class="app-name">Glix Local (Alpha)</h3>
+                <div class="app-links">
+                    <a href="https://play.google.com/apps/testing/com.glixar.local" target="_blank" class="btn-link">
+                        Join Web Testing
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.glixar.local" target="_blank" class="btn-link">
+                        Download on Play Store
+                    </a>
+                </div>
+            </div>
+
         </div>
+
     </div>
 
-    <script>
-        function openGroupJoin() {
-            
-            window.open('https://groups.google.com/g/gixplay', '_blank');
-            
-            
-            window.open('https://play.google.com/apps/testing/com.gixplay.player', '_blank');
-            
-            const links = document.getElementById('downloadLinks');
-            links.classList.add('show');
-            links.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-    </script>
 </body>
 </html>
