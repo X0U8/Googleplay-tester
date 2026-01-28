@@ -13,27 +13,30 @@
             box-sizing: border-box;
             -webkit-user-select: none;
             user-select: none;
+            outline: none;
         }
 
         body {
-            background: #050505;
+            background: #000000;
             color: #ffffff;
-            font-family: 'Comfortaa', cursive;
+            font-family: 'Comfortaa', sans-serif;
             min-height: 100vh;
-            padding: 30px 15px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .main-wrapper {
             max-width: 900px;
-            margin: 0 auto;
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 40px;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 0.6s ease-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -43,8 +46,8 @@
         .logo-row {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-bottom: 25px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .logo-box {
@@ -52,173 +55,178 @@
             height: 80px;
             border-radius: 18px;
             overflow: hidden;
-            border: 2px solid #222;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
             transition: transform 0.3s;
         }
-        .logo-box:hover { transform: scale(1.05); }
+        
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff 30%, #777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
+            font-weight: 700;
         }
 
-        /* --- GRID LAYOUT --- */
+        p.subtitle {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        /* --- LAYOUT --- */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 40px;
             align-items: start;
         }
 
-        /* --- LEFT: ACTION CARD --- */
-        .action-card {
+        /* --- LEFT PANEL --- */
+        .action-panel {
             background: #111;
-            border: 1px solid #333;
-            border-radius: 24px;
+            border: 1px solid #222;
+            border-radius: 20px;
             padding: 30px;
             position: sticky;
             top: 20px;
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.1); /* Subtle green glow */
         }
 
-        .step-label {
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .section-label {
             font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: #4CAF50;
-            font-weight: 700;
             margin-bottom: 15px;
             display: block;
+            font-weight: 700;
         }
 
-        .instruction-list { list-style: none; margin-bottom: 30px; }
-        .instruction-list li {
-            margin-bottom: 15px;
-            color: #ccc;
-            display: flex;
-            align-items: center;
-            font-size: 0.95rem;
-        }
-        .instruction-list li span {
-            background: #222;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-size: 0.8rem;
-            color: #fff;
+        h3 { font-size: 1.2rem; margin-bottom: 10px; color: #eee; }
+        
+        .instruction-text {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
-        .btn-join-group {
-            background: #ffffff;
+        .btn-join {
+            background: #fff;
             color: #000;
             width: 100%;
-            padding: 16px;
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 10px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             border: none;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-join-group:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+            transition: background 0.2s;
+            margin-bottom: 15px;
         }
 
-        /* --- RIGHT: APPS AREA --- */
-        .apps-container {
-            opacity: 0.4;
-            filter: blur(5px);
-            pointer-events: none;
-            transition: all 0.5s ease;
+        .btn-join:hover { background: #e0e0e0; }
+
+        .already-member {
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
         }
-        .apps-container.unlocked {
+        
+        .already-member:hover { color: #fff; }
+
+        /* --- RIGHT PANEL (APPS) --- */
+        .apps-container {
+            opacity: 0.3;
+            filter: blur(6px);
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .apps-container.active {
             opacity: 1;
             filter: blur(0);
-            pointer-events: all;
+            pointer-events: auto;
         }
 
         .app-card {
-            background: #0f0f0f;
+            background: #0a0a0a;
             border: 1px solid #222;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
         }
 
-        .app-header { display: flex; align-items: center; gap: 15px; }
-        .app-icon { width: 50px; height: 50px; border-radius: 10px; overflow: hidden; }
-        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
-        .app-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
-
-        .btn-row {
-            display: flex;
-            flex-direction: column; /* Stack buttons to highlight top one */
-            gap: 10px;
-        }
-
-        .app-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-align: center;
-            transition: all 0.2s;
+        .app-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        /* PRIMARY BUTTON (Join Web) */
-        .app-btn.web {
-            background: #4CAF50; /* Green highlight */
-            color: #000;
-            border: none;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); /* Glow effect */
+        .app-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #222;
         }
-        .app-btn.web:hover {
-            background: #45a049;
-            transform: scale(1.02);
-        }
+        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* SECONDARY BUTTON (Play Store) */
-        .app-btn.store {
-            background: transparent;
-            color: #888;
-            border: 1px solid #333;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-        .app-btn.store:hover {
-            border-color: #666;
+        .app-name {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #fff;
         }
 
-        .locked-msg {
-            text-align: center;
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .unlocked .locked-msg { display: none; }
 
+        .btn-link {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.1s;
+        }
+
+        .btn-link:active { transform: scale(0.98); }
+
+        /* Highlighted Web Button */
+        .btn-web {
+            background: #4CAF50;
+            color: #000000;
+            border: none;
+        }
+        
+        .btn-web:hover { background: #43A047; }
+
+        /* Secondary Store Button */
+        .btn-store {
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+        }
+
+        .btn-store:hover {
+            border-color: #555;
+            color: #fff;
+        }
+
+        /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-grid { grid-template-columns: 1fr; gap: 30px; }
+            .action-panel { position: static; }
         }
     </style>
 </head>
@@ -232,42 +240,40 @@
                 <div class="logo-box"><img src="https://ik.imagekit.io/sbsjhivv8/play_store_512.png" alt="Glix Local"></div>
             </div>
             <h1>Testing Program</h1>
-            <p style="color:#888;">Join the group to unlock access.</p>
+            <p class="subtitle">Join the group to access beta releases.</p>
         </div>
 
         <div class="dashboard-grid">
 
-            <div class="action-card">
-                <span class="step-label">Step 1: Required</span>
+            <div class="action-panel">
+                <span class="section-label">Step 1</span>
                 <h3>Join Group</h3>
-                <p style="color:#666; font-size:0.85rem; margin-bottom: 20px;">Use your Google Account to join.</p>
-                
-                <ul class="instruction-list">
-                    <li><span>1</span> Click button below.</li>
-                    <li><span>2</span> Join "glixartesters".</li>
-                    <li><span>3</span> Links will unlock automatically.</li>
-                </ul>
-                
-                <button class="btn-join-group" onclick="unlockApps()">
+                <p class="instruction-text">
+                    Access is restricted to group members. Click the button below to join "glixartesters" with your Google Account.
+                </p>
+
+                <button class="btn-join" onclick="openJoinWindow()">
                     Join glixartesters
                 </button>
+
+                <a class="already-member" onclick="unlockInterface()">
+                    I am already a member
+                </a>
             </div>
 
-            <div class="apps-container" id="appsArea">
-                <div class="locked-msg">🔒 Join group to view links</div>
-
-                <span class="step-label">Step 2: Install</span>
+            <div class="apps-container" id="appsContainer">
+                <span class="section-label">Step 2: Install</span>
                 
                 <div class="app-card">
                     <div class="app-header">
                         <div class="app-icon"><img src="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929"></div>
-                        <div class="app-title">Gixplay</div>
+                        <div class="app-name">Gixplay</div>
                     </div>
-                    <div class="btn-row">
-                        <a href="https://play.google.com/apps/testing/com.gixplay.player" target="_blank" class="app-btn web">
-                            <span>🚀</span> Join on Web (Recommended)
+                    <div class="action-buttons">
+                        <a href="https://play.google.com/apps/testing/com.gixplay.player" target="_blank" class="btn-link btn-web">
+                            Join on Web
                         </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" target="_blank" class="app-btn store">
+                        <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" target="_blank" class="btn-link btn-store">
                             Download on Play Store
                         </a>
                     </div>
@@ -276,41 +282,42 @@
                 <div class="app-card">
                     <div class="app-header">
                         <div class="app-icon"><img src="https://ik.imagekit.io/sbsjhivv8/play_store_512.png"></div>
-                        <div class="app-title">Glix Local (Alpha)</div>
+                        <div class="app-name">Glix Local (Alpha)</div>
                     </div>
-                    <div class="btn-row">
-                        <a href="https://play.google.com/apps/testing/com.glixar.local" target="_blank" class="app-btn web">
-                            <span>🚀</span> Join on Web (Recommended)
+                    <div class="action-buttons">
+                        <a href="https://play.google.com/apps/testing/com.glixar.local" target="_blank" class="btn-link btn-web">
+                            Join on Web
                         </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.glixar.local" target="_blank" class="app-btn store">
+                        <a href="https://play.google.com/store/apps/details?id=com.glixar.local" target="_blank" class="btn-link btn-store">
                             Download on Play Store
                         </a>
                     </div>
                 </div>
 
             </div>
+
         </div>
     </div>
 
     <script>
-        function unlockApps() {
-            // Updated URL to glixartesters
-            const groupUrl = 'https://groups.google.com/g/glixartesters';
+        function openJoinWindow() {
+            // This mimics an "Embedded" experience by floating a window over the current page
+            // Standard iframes are blocked by Google security
+            const url = 'https://groups.google.com/g/glixartesters';
+            const width = 500;
+            const height = 600;
+            const left = (window.innerWidth - width) / 2;
+            const top = (window.innerHeight - height) / 2;
             
-            // Pop-up window Logic (Simulates "staying on page")
-            const width = 600;
-            const height = 700;
-            const left = (window.innerWidth / 2) - (width / 2);
-            const top = (window.innerHeight / 2) - (height / 2);
+            window.open(url, 'GroupJoin', `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`);
             
-            window.open(
-                groupUrl, 
-                'JoinGroupWindow', 
-                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
-            );
+            // Automatically unlock apps after clicking join
+            unlockInterface();
+        }
 
-            // Visually unlock the apps immediately
-            document.getElementById('appsArea').classList.add('unlocked');
+        function unlockInterface() {
+            const container = document.getElementById('appsContainer');
+            container.classList.add('active');
         }
     </script>
 </body>
