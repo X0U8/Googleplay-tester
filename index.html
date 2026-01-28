@@ -250,7 +250,7 @@
         .modal-content {
             position: relative;
             width: 90%;
-            max-width: 1000px;
+            max-width: 1100px;
             height: 85vh;
             background: #111;
             border-radius: 20px;
@@ -300,51 +300,17 @@
         .modal-body {
             height: calc(100% - 70px);
             padding: 0;
+            background: #0a0a0a;
         }
 
-        .modal-iframe {
+        #groupEmbedContainer {
             width: 100%;
             height: 100%;
-            border: none;
-            background: #000;
         }
 
-        .iframe-blocked-message {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 40px;
-            text-align: center;
-            gap: 20px;
-        }
-
-        .iframe-blocked-message h3 {
-            color: #4CAF50;
-            font-size: 1.3rem;
-        }
-
-        .iframe-blocked-message p {
-            color: #999;
-            line-height: 1.7;
-            max-width: 500px;
-        }
-
-        .btn-open-external {
-            background: #4CAF50;
-            color: #000;
-            padding: 14px 30px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-
-        .btn-open-external:hover {
-            background: #43A047;
+        /* Style the embedded Google Group iframe */
+        #groupEmbedContainer iframe {
+            border-radius: 0 0 20px 20px;
         }
 
         /* --- MOBILE --- */
@@ -424,7 +390,7 @@
         </div>
     </div>
 
-    <!-- MODAL OVERLAY -->
+    <!-- MODAL OVERLAY WITH GOOGLE GROUPS EMBED -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -432,72 +398,58 @@
                 <button class="btn-close" onclick="closeModal()">Close & Continue</button>
             </div>
             <div class="modal-body">
-                <iframe 
-                    id="groupIframe"
-                    class="modal-iframe" 
-                    src="" 
-                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                    onload="handleIframeLoad()"
-                    onerror="handleIframeError()">
-                </iframe>
-                <div class="iframe-blocked-message" id="blockedMessage" style="display: none;">
-                    <h3>⚠️ Google Groups Cannot Be Embedded</h3>
-                    <p>
-                        For security reasons, Google doesn't allow their pages to be embedded. 
-                        Please click the button below to open the group page in a new window, 
-                        join the group, then return here to continue.
-                    </p>
-                    <a href="https://groups.google.com/g/glixartesters" target="_blank" class="btn-open-external" onclick="unlockInterface()">
-                        Open Google Groups →
-                    </a>
-                    <p style="font-size: 0.85rem; color: #666; margin-top: 20px;">
-                        After joining, click "Close & Continue" above or "I am already a member" on the main page.
-                    </p>
-                </div>
+                <div id="groupEmbedContainer"></div>
             </div>
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
+        // Google Groups Official Embed Code
+        function loadGoogleGroupEmbed() {
+            const container = document.getElementById('groupEmbedContainer');
+            
+            // Clear any existing content
+            container.innerHTML = '';
+            
+            // Create the iframe element
+            const iframe = document.createElement('iframe');
+            iframe.id = 'forum_embed';
+            iframe.src = 'javascript:void(0)';
+            iframe.scrolling = 'no';
+            iframe.frameBorder = '0';
+            iframe.width = '100%';
+            iframe.height = '100%';
+            
+            container.appendChild(iframe);
+            
+            // Load the Google Groups embed script
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(
+                '<script type="text/javascript">' +
+                'var el = document.createElement("script");' +
+                'el.type = "text/javascript";' +
+                'el.src = "https://groups.google.com/forum/embed/?place=forum/glixartesters' +
+                '&showsearch=true' +           // Show search bar
+                '&showpopout=true' +            // Allow opening in new window
+                '&showtabs=false' +             // Hide tabs for cleaner look
+                '&parenturl=" + encodeURIComponent(window.location.href);' +
+                'document.body.appendChild(el);' +
+                '<\/script>'
+            );
+            iframe.contentWindow.document.close();
+        }
+
         function openJoinWindow() {
             const modal = document.getElementById('modalOverlay');
-            const iframe = document.getElementById('groupIframe');
-            
-            // Try to load in iframe first
-            iframe.src = 'https://groups.google.com/g/glixartesters';
             modal.classList.add('active');
             
-            // Show blocked message after 2 seconds if iframe doesn't load properly
-            setTimeout(() => {
-                handleIframeError();
-            }, 2000);
-        }
-
-        function handleIframeLoad() {
-            try {
-                // Try to access iframe content - will fail if blocked by CORS
-                const iframeDoc = document.getElementById('groupIframe').contentDocument;
-                if (!iframeDoc) {
-                    handleIframeError();
-                }
-            } catch (e) {
-                handleIframeError();
-            }
-        }
-
-        function handleIframeError() {
-            // Google blocks iframe embedding, so show fallback message
-            const iframe = document.getElementById('groupIframe');
-            const message = document.getElementById('blockedMessage');
+            // Load the Google Groups embed
+            loadGoogleGroupEmbed();
             
-            try {
-                // Check if we can access iframe content
-                const test = iframe.contentWindow.location.href;
-            } catch (e) {
-                // Blocked - show message
-                iframe.style.display = 'none';
-                message.style.display = 'flex';
-            }
+            // Automatically unlock the interface after opening
+            setTimeout(() => {
+                unlockInterface();
+            }, 1000);
         }
 
         function closeModal() {
@@ -516,6 +468,11 @@
             if (e.target === this) {
                 closeModal();
             }
+        });
+
+        // Prevent modal content clicks from closing
+        document.querySelector('.modal-content').addEventListener('click', function(e) {
+            e.stopPropagation();
         });
     </script>
 </body>
