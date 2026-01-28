@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Testing Dashboard</title>
-    <link rel="icon" type="image/jpeg" href="https://ik.imagekit.io/sbsjhivv8/Gixplay.jpg?updatedAt=1767769824929">
+    <link rel="icon" type="image/png" href="https://ik.imagekit.io/sbsjhivv8/play_store_512.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -37,10 +37,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- HEADER & LOGOS --- */
-        .header-section {
-            text-align: center;
-        }
+        /* --- HEADER --- */
+        .header-section { text-align: center; }
 
         .logo-row {
             display: flex;
@@ -58,9 +56,7 @@
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
             transition: transform 0.3s;
         }
-
         .logo-box:hover { transform: scale(1.05); }
-
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
         h1 {
@@ -71,8 +67,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        p.subtitle { color: #888; font-size: 1rem; }
-
         /* --- GRID LAYOUT --- */
         .dashboard-grid {
             display: grid;
@@ -81,14 +75,15 @@
             align-items: start;
         }
 
-        /* --- LEFT COLUMN: ACTION --- */
+        /* --- LEFT: ACTION CARD --- */
         .action-card {
             background: #111;
-            border: 1px solid #222;
+            border: 1px solid #333;
             border-radius: 24px;
             padding: 30px;
             position: sticky;
             top: 20px;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.1); /* Subtle green glow */
         }
 
         .step-label {
@@ -101,11 +96,7 @@
             display: block;
         }
 
-        .instruction-list {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
+        .instruction-list { list-style: none; margin-bottom: 30px; }
         .instruction-list li {
             margin-bottom: 15px;
             color: #ccc;
@@ -113,7 +104,6 @@
             align-items: center;
             font-size: 0.95rem;
         }
-
         .instruction-list li span {
             background: #222;
             width: 24px;
@@ -127,8 +117,8 @@
             color: #fff;
         }
 
-        .btn-join {
-            background: #fff;
+        .btn-join-group {
+            background: #ffffff;
             color: #000;
             width: 100%;
             padding: 16px;
@@ -138,26 +128,19 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
         }
-
-        .btn-join:hover {
-            background: #eee;
+        .btn-join-group:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255,255,255,0.2);
         }
 
-        /* --- RIGHT COLUMN: APPS --- */
+        /* --- RIGHT: APPS AREA --- */
         .apps-container {
-            /* Initial Locked State */
-            opacity: 0.5;
-            filter: blur(4px);
+            opacity: 0.4;
+            filter: blur(5px);
             pointer-events: none;
             transition: all 0.5s ease;
         }
-
         .apps-container.unlocked {
             opacity: 1;
             filter: blur(0);
@@ -175,72 +158,67 @@
             gap: 15px;
         }
 
-        .app-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .app-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+        .app-header { display: flex; align-items: center; gap: 15px; }
+        .app-icon { width: 50px; height: 50px; border-radius: 10px; overflow: hidden; }
         .app-icon img { width: 100%; height: 100%; object-fit: cover; }
-
         .app-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
 
         .btn-row {
             display: flex;
+            flex-direction: column; /* Stack buttons to highlight top one */
             gap: 10px;
         }
 
         .app-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
             text-align: center;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
+        /* PRIMARY BUTTON (Join Web) */
         .app-btn.web {
-            background: #222;
-            color: #fff;
-            border: 1px solid #333;
-        }
-        .app-btn.store {
-            background: #4CAF50;
+            background: #4CAF50; /* Green highlight */
             color: #000;
             border: none;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); /* Glow effect */
+        }
+        .app-btn.web:hover {
+            background: #45a049;
+            transform: scale(1.02);
         }
 
-        .app-btn:hover { opacity: 0.9; }
+        /* SECONDARY BUTTON (Play Store) */
+        .app-btn.store {
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .app-btn.store:hover {
+            border-color: #666;
+            color: #fff;
+        }
 
         .locked-msg {
             text-align: center;
             color: #666;
             margin-bottom: 10px;
             font-size: 0.9rem;
-            display: block; /* Visible initially */
         }
-        
-        .unlocked .locked-msg {
-            display: none; /* Hide when unlocked */
-        }
+        .unlocked .locked-msg { display: none; }
 
-        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr; /* Stack vertically on mobile */
-            }
-            .action-card {
-                position: relative;
-                top: 0;
-            }
+            .dashboard-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -254,32 +232,29 @@
                 <div class="logo-box"><img src="https://ik.imagekit.io/sbsjhivv8/play_store_512.png" alt="Glix Local"></div>
             </div>
             <h1>Testing Program</h1>
-            <p class="subtitle">One Step to unlock all beta apps.</p>
+            <p style="color:#888;">Join the group to unlock access.</p>
         </div>
 
         <div class="dashboard-grid">
 
             <div class="action-card">
                 <span class="step-label">Step 1: Required</span>
-                <h3 style="margin-bottom: 20px;">Join Google Group</h3>
+                <h3>Join Group</h3>
+                <p style="color:#666; font-size:0.85rem; margin-bottom: 20px;">Use your Google Account to join.</p>
+                
                 <ul class="instruction-list">
-                    <li><span>1</span> Click the button below.</li>
-                    <li><span>2</span> Join group with your Google Account.</li>
-                    <li><span>3</span> Come back here to download.</li>
+                    <li><span>1</span> Click button below.</li>
+                    <li><span>2</span> Join "glixartesters".</li>
+                    <li><span>3</span> Links will unlock automatically.</li>
                 </ul>
                 
-                <button class="btn-join" onclick="unlockApps()">
-                    Join Group & Unlock Apps
+                <button class="btn-join-group" onclick="unlockApps()">
+                    Join glixartesters
                 </button>
-                <p style="font-size: 0.8rem; color:#555; margin-top:15px; text-align:center;">
-                    (Opens in new tab due to Google security)
-                </p>
             </div>
 
             <div class="apps-container" id="appsArea">
-                <div class="locked-msg">
-                    🔒 Apps are locked. Click "Join Group" to view links.
-                </div>
+                <div class="locked-msg">🔒 Join group to view links</div>
 
                 <span class="step-label">Step 2: Install</span>
                 
@@ -289,8 +264,12 @@
                         <div class="app-title">Gixplay</div>
                     </div>
                     <div class="btn-row">
-                        <a href="https://play.google.com/apps/testing/com.gixplay.player" target="_blank" class="app-btn web">Join Web</a>
-                        <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" target="_blank" class="app-btn store">Play Store</a>
+                        <a href="https://play.google.com/apps/testing/com.gixplay.player" target="_blank" class="app-btn web">
+                            <span>🚀</span> Join on Web (Recommended)
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.gixplay.player" target="_blank" class="app-btn store">
+                            Download on Play Store
+                        </a>
                     </div>
                 </div>
 
@@ -300,26 +279,39 @@
                         <div class="app-title">Glix Local (Alpha)</div>
                     </div>
                     <div class="btn-row">
-                        <a href="https://play.google.com/apps/testing/com.glixar.local" target="_blank" class="app-btn web">Join Web</a>
-                        <a href="https://play.google.com/store/apps/details?id=com.glixar.local" target="_blank" class="app-btn store">Play Store</a>
+                        <a href="https://play.google.com/apps/testing/com.glixar.local" target="_blank" class="app-btn web">
+                            <span>🚀</span> Join on Web (Recommended)
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.glixar.local" target="_blank" class="app-btn store">
+                            Download on Play Store
+                        </a>
                     </div>
                 </div>
 
             </div>
-
         </div>
     </div>
 
     <script>
         function unlockApps() {
-            // 1. Open Google Group in new tab
-            window.open('https://groups.google.com/g/glixartesters', '_blank');
+            // Updated URL to glixartesters
+            const groupUrl = 'https://groups.google.com/g/glixartesters';
+            
+            // Pop-up window Logic (Simulates "staying on page")
+            const width = 600;
+            const height = 700;
+            const left = (window.innerWidth / 2) - (width / 2);
+            const top = (window.innerHeight / 2) - (height / 2);
+            
+            window.open(
+                groupUrl, 
+                'JoinGroupWindow', 
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+            );
 
-            // 2. Visually unlock the apps on THIS page immediately
-            const appsArea = document.getElementById('appsArea');
-            appsArea.classList.add('unlocked');
+            // Visually unlock the apps immediately
+            document.getElementById('appsArea').classList.add('unlocked');
         }
     </script>
-
 </body>
 </html>
