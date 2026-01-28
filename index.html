@@ -223,10 +223,135 @@
             color: #fff;
         }
 
+        /* --- MODAL OVERLAY --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 85vh;
+            background: #111;
+            border-radius: 20px;
+            border: 1px solid #333;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: #1a1a1a;
+            padding: 20px 25px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+
+        .btn-close {
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-close:hover {
+            background: #222;
+            color: #fff;
+            border-color: #666;
+        }
+
+        .modal-body {
+            height: calc(100% - 70px);
+            padding: 0;
+        }
+
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .iframe-blocked-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .iframe-blocked-message h3 {
+            color: #4CAF50;
+            font-size: 1.3rem;
+        }
+
+        .iframe-blocked-message p {
+            color: #999;
+            line-height: 1.7;
+            max-width: 500px;
+        }
+
+        .btn-open-external {
+            background: #4CAF50;
+            color: #000;
+            padding: 14px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-open-external:hover {
+            background: #43A047;
+        }
+
         /* --- MOBILE --- */
         @media (max-width: 768px) {
             .dashboard-grid { grid-template-columns: 1fr; gap: 30px; }
             .action-panel { position: static; }
+            .modal-content { width: 95%; height: 90vh; }
         }
     </style>
 </head>
@@ -299,19 +424,85 @@
         </div>
     </div>
 
+    <!-- MODAL OVERLAY -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Join glixartesters Group</div>
+                <button class="btn-close" onclick="closeModal()">Close & Continue</button>
+            </div>
+            <div class="modal-body">
+                <iframe 
+                    id="groupIframe"
+                    class="modal-iframe" 
+                    src="" 
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    onload="handleIframeLoad()"
+                    onerror="handleIframeError()">
+                </iframe>
+                <div class="iframe-blocked-message" id="blockedMessage" style="display: none;">
+                    <h3>⚠️ Google Groups Cannot Be Embedded</h3>
+                    <p>
+                        For security reasons, Google doesn't allow their pages to be embedded. 
+                        Please click the button below to open the group page in a new window, 
+                        join the group, then return here to continue.
+                    </p>
+                    <a href="https://groups.google.com/g/glixartesters" target="_blank" class="btn-open-external" onclick="unlockInterface()">
+                        Open Google Groups →
+                    </a>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 20px;">
+                        After joining, click "Close & Continue" above or "I am already a member" on the main page.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openJoinWindow() {
-            // This mimics an "Embedded" experience by floating a window over the current page
-            // Standard iframes are blocked by Google security
-            const url = 'https://groups.google.com/g/glixartesters';
-            const width = 500;
-            const height = 600;
-            const left = (window.innerWidth - width) / 2;
-            const top = (window.innerHeight - height) / 2;
+            const modal = document.getElementById('modalOverlay');
+            const iframe = document.getElementById('groupIframe');
             
-            window.open(url, 'GroupJoin', `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`);
+            // Try to load in iframe first
+            iframe.src = 'https://groups.google.com/g/glixartesters';
+            modal.classList.add('active');
             
-            // Automatically unlock apps after clicking join
+            // Show blocked message after 2 seconds if iframe doesn't load properly
+            setTimeout(() => {
+                handleIframeError();
+            }, 2000);
+        }
+
+        function handleIframeLoad() {
+            try {
+                // Try to access iframe content - will fail if blocked by CORS
+                const iframeDoc = document.getElementById('groupIframe').contentDocument;
+                if (!iframeDoc) {
+                    handleIframeError();
+                }
+            } catch (e) {
+                handleIframeError();
+            }
+        }
+
+        function handleIframeError() {
+            // Google blocks iframe embedding, so show fallback message
+            const iframe = document.getElementById('groupIframe');
+            const message = document.getElementById('blockedMessage');
+            
+            try {
+                // Check if we can access iframe content
+                const test = iframe.contentWindow.location.href;
+            } catch (e) {
+                // Blocked - show message
+                iframe.style.display = 'none';
+                message.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.remove('active');
             unlockInterface();
         }
 
@@ -319,6 +510,13 @@
             const container = document.getElementById('appsContainer');
             container.classList.add('active');
         }
+
+        // Close modal when clicking outside
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
